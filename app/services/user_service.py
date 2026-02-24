@@ -28,3 +28,14 @@ class UserService:
             raise UserNotFoundError("User not found.")
 
         return user
+
+    def authenticate_user(self, username: str, password: str) -> User:
+        user = self.user_repository.find_by_username(username)
+
+        if not user:
+            raise UserNotFoundError("Invalid credentials.")
+
+        if not PasswordService.verify_password(password, user.password):
+            raise UserNotFoundError("Invalid credentials.")
+
+        return user
