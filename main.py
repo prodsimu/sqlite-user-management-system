@@ -1,9 +1,17 @@
 from app.database.migrations import create_tables
+from app.repositories.user_repository import UserRepository
 
 
 def start():
     create_tables()
-    print("System initialized successfully.")
+
+    repo = UserRepository()
+
+    user = repo.create("Inacio", "inacio123", "123")
+    print("Created:", user)
+
+    found = repo.find_by_username("inacio123")
+    print("Found:", found)
 
 
 if __name__ == "__main__":
