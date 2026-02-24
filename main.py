@@ -1,17 +1,17 @@
 from app.database.migrations import create_tables
-from app.repositories.user_repository import UserRepository
+from app.services.user_service import UserService
 
 
 def start():
     create_tables()
 
-    repo = UserRepository()
+    service = UserService()
 
-    user = repo.create("Inacio", "inacio123", "123")
-    print("Created:", user)
-
-    found = repo.find_by_username("inacio123")
-    print("Found:", found)
+    try:
+        user = service.create_user("Inacio", "inacio123", "123")
+        print("User created:", user)
+    except Exception as e:
+        print("Error:", e)
 
 
 if __name__ == "__main__":
