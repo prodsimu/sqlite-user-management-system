@@ -6,6 +6,8 @@ class UserRepository:
     def __init__(self):
         self.connection = DatabaseConnection().get_connection()
 
+    # CREATE
+
     def create(self, name: str, username: str, password: str) -> User:
         cursor = self.connection.execute(
             """
@@ -18,6 +20,8 @@ class UserRepository:
 
         user_id = cursor.lastrowid
         return User(user_id, name, username, password)
+
+    # READ
 
     def find_by_id(self, user_id: int) -> User | None:
         cursor = self.connection.execute(
@@ -48,3 +52,19 @@ class UserRepository:
             return None
 
         return User(row["id"], row["name"], row["username"], row["password"])
+
+    # UPDATE
+
+    # DELETE
+
+    def delete(self, user_id: int) -> bool:
+        cursor = self.connection.execute(
+            """
+            DELETE FROM users WHERE id = ?
+            """,
+            (user_id,),
+        )
+
+        self.connection.commit()
+
+        return cursor.rowcount > 0
