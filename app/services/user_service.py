@@ -1,7 +1,7 @@
 from app.repositories.user_repository import UserRepository
-from app.models.user import User
+from app.domain.user import User
+from app.domain.user_role import UserRole
 from app.services.password_service import PasswordService
-from app.models.user_role import UserRole
 from app.exceptions.user_exceptions import (
     UserAlreadyExistsError,
     UserNotFoundError,

@@ -1,5 +1,5 @@
 from app.database.connection import DatabaseConnection
-from app.models.user import User
+from app.domain.user import User
 
 
 class UserRepository:

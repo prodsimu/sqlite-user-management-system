@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 from app.database.connection import DatabaseConnection
-from app.models.session import Session
+from app.domain.session import Session
 
 
 class SessionRepository:
