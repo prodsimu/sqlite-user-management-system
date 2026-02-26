@@ -59,6 +59,50 @@ class UserRepository:
 
     # UPDATE
 
+    def update_by_fields(
+        self,
+        user_id: int,
+        name: str | None = None,
+        username: str | None = None,
+        password: str | None = None,
+        role: str | None = None,
+    ) -> bool:
+
+        fields = []
+        values = []
+
+        if name is not None:
+            fields.append("name = ?")
+            values.append(name)
+
+        if username is not None:
+            fields.append("username = ?")
+            values.append(username)
+
+        if password is not None:
+            fields.append("password = ?")
+            values.append(password)
+
+        if role is not None:
+            fields.append("role = ?")
+            values.append(role)
+
+        if not fields:
+            return False
+
+        values.append(user_id)
+
+        query = f"""
+            UPDATE users
+            SET {', '.join(fields)}
+            WHERE id = ?
+        """
+
+        cursor = self.connection.execute(query, tuple(values))
+        self.connection.commit()
+
+        return cursor.rowcount > 0
+
     # DELETE
 
     def delete(self, user_id: int) -> bool:
