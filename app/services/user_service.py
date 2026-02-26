@@ -1,6 +1,7 @@
 from app.repositories.user_repository import UserRepository
 from app.models.user import User
 from app.services.password_service import PasswordService
+from app.models.user_role import UserRole
 from app.exceptions.user_exceptions import (
     UserAlreadyExistsError,
     UserNotFoundError,
@@ -21,7 +22,11 @@ class UserService:
 
         hashed_password = PasswordService.hash_password(password)
 
-        return self.user_repository.create(name, username, hashed_password)
+        default_role = UserRole.USER.value
+
+        return self.user_repository.create(
+            name, username, hashed_password, default_role
+        )
 
     # READ
 

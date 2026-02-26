@@ -10,7 +10,8 @@ def create_tables():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             username TEXT NOT NULL UNIQUE,
-            password TEXT NOT NULL
+            password TEXT NOT NULL,
+            role TEXT NOT NULL
         );
     """
     )

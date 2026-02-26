@@ -8,18 +8,18 @@ class UserRepository:
 
     # CREATE
 
-    def create(self, name: str, username: str, password: str) -> User:
+    def create(self, name: str, username: str, password: str, role: str) -> User:
         cursor = self.connection.execute(
             """
-            INSERT INTO users (name, username, password)
-            VALUES (?, ?, ?)
+            INSERT INTO users (name, username, password, role)
+            VALUES (?, ?, ?, ?)
             """,
-            (name, username, password),
+            (name, username, password, role),
         )
         self.connection.commit()
 
         user_id = cursor.lastrowid
-        return User(user_id, name, username, password)
+        return User(user_id, name, username, password, role)
 
     # READ
 
@@ -36,7 +36,9 @@ class UserRepository:
         if row is None:
             return None
 
-        return User(row["id"], row["name"], row["username"], row["password"])
+        return User(
+            row["id"], row["name"], row["username"], row["password"], row["role"]
+        )
 
     def find_by_username(self, username: str) -> User | None:
         cursor = self.connection.execute(
@@ -51,7 +53,9 @@ class UserRepository:
         if row is None:
             return None
 
-        return User(row["id"], row["name"], row["username"], row["password"])
+        return User(
+            row["id"], row["name"], row["username"], row["password"], row["role"]
+        )
 
     # UPDATE
 
