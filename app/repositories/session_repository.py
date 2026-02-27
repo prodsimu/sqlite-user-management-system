@@ -8,6 +8,8 @@ class SessionRepository:
     def __init__(self):
         self.connection = DatabaseConnection().get_connection()
 
+    # CREATE
+
     def create(self, user_id: int) -> Session:
 
         created_at = datetime.now(timezone.utc).isoformat()
@@ -24,3 +26,23 @@ class SessionRepository:
 
         session_id = cursor.lastrowid
         return Session(session_id, user_id, created_at, active)
+
+    # UPDATE
+
+    def deactivate(self, session_id: int) -> bool:
+        cursor = self.connection.execute(
+            """
+            UPDATE sessions
+            SET active = ?
+            WHERE id = ? AND active = ?
+            """,
+            (
+                SessionActive.INACTIVE.value,
+                session_id,
+                SessionActive.ACTIVE.value,
+            ),
+        )
+
+        self.connection.commit()
+
+        return cursor.rowcount > 0
