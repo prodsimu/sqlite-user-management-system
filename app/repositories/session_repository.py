@@ -1,3 +1,5 @@
+from typing import Optional
+
 from datetime import datetime, timezone
 from app.database.connection import DatabaseConnection
 from app.domain.session import Session
@@ -46,3 +48,28 @@ class SessionRepository:
         self.connection.commit()
 
         return cursor.rowcount > 0
+
+    # READ
+
+    def get_active_by_user(self, user_id: int) -> Optional[Session]:
+        cursor = self.connection.execute(
+            """
+            SELECT id, user_id, active, created_at
+            FROM sessions
+            WHERE active = 1 AND user_id = ?
+            LIMIT 1
+            """,
+            (user_id,),
+        )
+
+        row = cursor.fetchone()
+
+        if not row:
+            return None
+
+        return Session(
+            id=row[0],
+            user_id=row[1],
+            active=row[2],
+            created_at=row[3],
+        )
