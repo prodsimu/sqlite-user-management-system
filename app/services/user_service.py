@@ -29,6 +29,10 @@ class UserService:
             name, username, hashed_password, default_role
         )
 
+    def create_admin(self, name: str, username: str, password: str) -> User:
+        hashed = PasswordService.hash_password(password)
+        return self.user_repository.create(name, username, hashed, UserRole.ADMIN.value)
+
     # READ
 
     def get_user_by_username(self, username: str) -> User:
