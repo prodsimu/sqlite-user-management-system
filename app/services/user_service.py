@@ -5,6 +5,7 @@ from app.services.password_service import PasswordService
 from app.exceptions.user_exceptions import (
     UserAlreadyExistsError,
     UserNotFoundError,
+    InvalidUserDataError,
 )
 
 
@@ -39,6 +40,32 @@ class UserService:
         return user
 
     # UPDATE
+
+    def change_user_role(
+        self,
+        current_user_id: int,
+        target_user_id: int,
+        new_role: str,
+    ) -> None:
+
+        current_user = self.user_repository.find_by_id(current_user_id)
+
+        if not current_user:
+            raise UserNotFoundError("Current user not found.")
+
+        if current_user.role != UserRole.ADMIN.value:
+            raise PermissionError("Only admins can change user roles.")
+
+        if new_role not in [role.value for role in UserRole]:
+            raise InvalidUserDataError("Invalid role.")
+
+        updated = self.user_repository.update_partial(
+            user_id=target_user_id,
+            role=new_role,
+        )
+
+        if not updated:
+            raise UserNotFoundError("Target user not found.")
 
     # DELETE
 
