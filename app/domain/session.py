@@ -8,5 +8,5 @@ class Session:
     def __repr__(self):
         return (
             f"Session(id={self.id}, user_id={self.user_id}, "
-            + "created_at='{self.created_at}', active='{self.active}')"
+            f"created_at='{self.created_at}', active='{self.active}')"
         )
