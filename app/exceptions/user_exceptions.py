@@ -8,3 +8,7 @@ class UserNotFoundError(Exception):
 
 class InvalidUserDataError(Exception):
     pass
+
+
+class InvalidPasswordError(Exception):
+    pass
