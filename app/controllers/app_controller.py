@@ -2,6 +2,8 @@ from app.services.user_service import UserService
 from app.services.session_service import SessionService
 from app.database.seeds import admin_seed
 from app.domain.user_role import UserRole
+from app.domain.user import User
+from app.domain.session import Session
 
 
 class AppController:
@@ -13,9 +15,9 @@ class AppController:
     ) -> None:
         self.user_service = user_service
         self.session_service = session_service
-        self.current_user = None
-        self.current_session = None
-        self.running = True
+        self.current_user: User | None = None
+        self.current_session: Session | None = None
+        self.running: bool = True
 
     # PUBLIC ENTRYPOINTS
 
