@@ -1,3 +1,5 @@
+import re
+
 from app.services.user_service import UserService
 from app.services.session_service import SessionService
 from app.database.seeds import admin_seed
@@ -25,3 +27,10 @@ class AppController:
 
     def start_app(self) -> None:
         self.bootstrap()
+
+    def login(self, username: str, password: str) -> None:
+        user = self.user_service.authenticate_user(username, password)
+        session = self.session_service.create_session(user.id)
+
+        self.current_user = user
+        self.current_session = session
