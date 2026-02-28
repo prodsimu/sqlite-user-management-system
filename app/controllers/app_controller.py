@@ -16,17 +16,6 @@ class AppController:
         self.session_service = session_service
         self.current_user: User | None = None
         self.current_session: Session | None = None
-        self.running: bool = True
-
-    # PUBLIC ENTRYPOINTS
-
-    def start_app(self) -> None:
-        self.bootstrap()
-
-    def shutdown_system(self) -> None:
-        self.runnig = False
-
-    # INITIALIZATION
 
     def bootstrap(self) -> None:
         admin_seed(self.user_service)

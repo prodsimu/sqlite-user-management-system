@@ -5,17 +5,22 @@ from app.domain.user_role import UserRole
 class CLI:
     def __init__(self, controller: AppController):
         self.controller = controller
+        self.running: bool = True
 
-    # MAIN LOOP
+    def start_app(self) -> None:
+        self.controller.bootstrap()
+        self.main_loop()
+
+    def shutdown_system(self) -> None:
+        self.running = False
 
     def main_loop(self) -> None:
         while self.running:
-
-            if not self.current_session:
+            if not self.controller.current_session:
                 pass
 
-            if self.current_user.role == UserRole.USER.value:
+            elif self.controller.current_user.role == UserRole.ADMIN.value:
                 pass
 
-            if self.current_user.role == UserRole.ADMIN.value:
+            else:
                 pass
