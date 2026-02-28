@@ -10,8 +10,8 @@ from app.exceptions.user_exceptions import (
 
 
 class UserService:
-    def __init__(self):
-        self.user_repository = UserRepository()
+    def __init__(self, user_repository: UserRepository) -> None:
+        self.user_repository = user_repository
 
     # CREATE
 
