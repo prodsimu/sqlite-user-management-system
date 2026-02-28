@@ -1,11 +1,11 @@
-import re
-
 from app.services.user_service import UserService
 from app.services.session_service import SessionService
 from app.database.seeds import admin_seed
+from app.domain.user_role import UserRole
 
 
 class AppController:
+
     def __init__(
         self,
         user_service: UserService,
@@ -15,6 +15,17 @@ class AppController:
         self.session_service = session_service
         self.current_user = None
         self.current_session = None
+        self.running = True
+
+    # PUBLIC ENTRYPOINTS
+
+    def start_app(self) -> None:
+        self.bootstrap()
+
+    def shutdown_system(self) -> None:
+        self.runnig = False
+
+    # INITIALIZATION
 
     def bootstrap(self) -> None:
         admin_seed(self.user_service)
@@ -25,8 +36,7 @@ class AppController:
         self.current_user = admin
         self.current_session = session
 
-    def start_app(self) -> None:
-        self.bootstrap()
+    # AUTH ACTIONS
 
     def login(self, username: str, password: str) -> None:
         user = self.user_service.authenticate_user(username, password)
@@ -43,3 +53,17 @@ class AppController:
 
         self.current_session = None
         self.current_user = None
+
+    # MAIN LOOP
+
+    def main_loop(self) -> None:
+        while self.running:
+
+            if not self.current_session:
+                pass
+
+            if self.current_user.role == UserRole.USER.value:
+                pass
+
+            if self.current_user.role == UserRole.ADMIN.value:
+                pass
