@@ -1,6 +1,7 @@
 from app.controllers.app_controller import AppController
 from app.domain.user_role import UserRole
 from app.ui.prompts import Prompt
+from app.ui.menus import Menu
 
 
 class CLI:
