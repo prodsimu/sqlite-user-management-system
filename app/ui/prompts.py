@@ -13,3 +13,9 @@ class Prompt:
                 print("\nChoose a valid option\n")
 
         return choice
+
+    @staticmethod
+    def ask_username() -> str:
+        username = input("Username: ")
+
+        return username
