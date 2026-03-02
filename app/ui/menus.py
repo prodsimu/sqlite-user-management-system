@@ -1,6 +1,14 @@
 class Menu:
 
     @staticmethod
+    def admin_seed_menu() -> None:
+        print("=== SYSTEM INITIALIZED ===")
+        print("Admin created automatically:")
+        print("Username: admin")
+        print("Password: admin123")
+        print("Logging in...")
+
+    @staticmethod
     def public_menu() -> None:
         print("=== PUBLIC MENU ===")
         print("1 - Login")
