@@ -1,6 +1,6 @@
 from app.services.user_service import UserService
 from app.services.session_service import SessionService
-from app.database.seeds import admin_seed
+from app.database.seeds.admin_seed import admin_seed
 from app.domain.user import User
 from app.domain.session import Session
 
