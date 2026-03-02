@@ -13,3 +13,9 @@ class Menu:
         print("3 - Update user")
         print("4 - Delete user")
         print("0 - Logout")
+
+    @staticmethod
+    def user_menu() -> None:
+        print("=== USER MENU ===")
+        print("1 - Change password")
+        print("0 - Logout")
