@@ -48,3 +48,6 @@ class AppController:
 
             self.current_user = admin
             self.current_session = session
+
+    def has_active_session(self) -> bool:
+        return self.current_session is not None
