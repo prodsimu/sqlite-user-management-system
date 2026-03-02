@@ -25,3 +25,11 @@ class Prompt:
         password = input("Password: ")
 
         return password
+
+    @staticmethod
+    def ask_user_data_to_creation() -> str:
+        name = input("Name: ")
+        username = input("Username: ")
+        password = input("Password: ")
+
+        return name, username, password
