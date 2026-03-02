@@ -1,3 +1,4 @@
+from app.domain.user_role import UserRole
 from app.services.user_service import UserService
 from app.services.session_service import SessionService
 from app.database.seeds.admin_seed import admin_seed
@@ -51,3 +52,9 @@ class AppController:
 
     def has_active_session(self) -> bool:
         return self.current_session is not None
+
+    def is_admin(self) -> bool:
+        return (
+            self.current_user is not None
+            and self.current_user.role == UserRole.ADMIN.value
+        )
