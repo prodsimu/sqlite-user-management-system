@@ -19,3 +19,9 @@ class Prompt:
         username = input("Username: ")
 
         return username
+
+    @staticmethod
+    def ask_password() -> str:
+        password = input("Password: ")
+
+        return password
