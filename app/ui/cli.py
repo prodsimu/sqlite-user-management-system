@@ -19,10 +19,13 @@ class CLI:
     def main_loop(self) -> None:
         while self.running:
             if not self.controller.current_session:
-                pass
+                Menu.public_menu()
+                break
 
             elif self.controller.current_user.role == UserRole.ADMIN.value:
-                pass
+                Menu.admin_menu()
+                break
 
             else:
-                pass
+                Menu.user_menu()
+                break
