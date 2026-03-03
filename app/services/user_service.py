@@ -47,6 +47,14 @@ class UserService:
 
         return user
 
+    def get_user_by_id(self, user_id: str) -> User:
+        user = self.user_repository.find_by_id(user_id)
+
+        if not user:
+            raise UserNotFoundError("User not found.")
+
+        return user
+
     def only_admin_exists(self) -> bool:
         return self.user_repository.check_if_only_admin_exists()
 
