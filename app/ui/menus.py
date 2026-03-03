@@ -28,3 +28,7 @@ class Menu:
         print("=== USER MENU ===")
         print("1 - Change password")
         print("0 - Logout")
+
+    @staticmethod
+    def show_error(message: str) -> None:
+        print(message)
