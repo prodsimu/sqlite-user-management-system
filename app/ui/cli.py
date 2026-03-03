@@ -17,12 +17,17 @@ class CLI:
         self.running = False
 
     def main_loop(self) -> None:
+
+        if self.controller.was_admin_seeded():
+            Menu.admin_seed_menu()
+
         while self.running:
-            if not self.controller.current_session:
+
+            if not self.controller.has_active_session():
                 Menu.public_menu()
                 break
 
-            elif self.controller.current_user.role == UserRole.ADMIN.value:
+            elif self.controller.is_admin():
                 Menu.admin_menu()
                 break
 
