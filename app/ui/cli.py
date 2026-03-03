@@ -36,6 +36,21 @@ class CLI:
                 Menu.user_menu()
                 break
 
+    # FLOWS
+
+    def handle_public_flow(self) -> None:
+        Menu.public_menu()
+        choice = Prompt.get_choice([0, 1])
+
+        match choice:
+
+            case 0:
+                Menu.shutdown_message()
+                self.shutdown_system()
+
+            case 1:
+                self._handle_login()
+
     # UTIL
 
     def _handle_login(self) -> None:
