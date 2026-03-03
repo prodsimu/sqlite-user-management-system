@@ -1,7 +1,7 @@
 from app.controllers.app_controller import AppController
 from app.domain.user_role import UserRole
-from app.ui.prompts import Prompt
 from app.ui.menus import Menu
+from app.ui.prompts import Prompt
 
 
 class CLI:
@@ -16,6 +16,8 @@ class CLI:
     def shutdown_system(self) -> None:
         self.running = False
 
+    # MAIN LOOP
+
     def main_loop(self) -> None:
 
         if self.controller.was_admin_seeded():
@@ -24,8 +26,7 @@ class CLI:
         while self.running:
 
             if not self.controller.has_active_session():
-                Menu.public_menu()
-                break
+                self.handle_public_flow()
 
             elif self.controller.is_admin():
                 Menu.admin_menu()
@@ -34,3 +35,14 @@ class CLI:
             else:
                 Menu.user_menu()
                 break
+
+    # UTIL
+
+    def _handle_login(self) -> None:
+        username = Prompt.ask_username()
+        password = Prompt.ask_password()
+
+        try:
+            self.controller.login(username, password)
+        except Exception as e:
+            Menu.show_error(e)
