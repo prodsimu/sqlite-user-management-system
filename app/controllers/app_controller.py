@@ -17,10 +17,13 @@ class AppController:
         self.session_service = session_service
         self.current_user: User | None = None
         self.current_session: Session | None = None
+        self._admin_seeded = False
 
     def bootstrap(self) -> None:
-        admin_seed(self.user_service)
-        self._auto_login_if_only_admin()
+        admin_created = admin_seed(self.user_service)
+
+        if admin_created:
+            self._admin_seeded = True
 
     # AUTH ACTIONS
 
@@ -42,13 +45,8 @@ class AppController:
 
     # UTIL
 
-    def _auto_login_if_only_admin(self) -> None:
-        if self.user_service.only_admin_exists():
-            admin = self.user_service.get_user_by_username("admin")
-            session = self.session_service.create_session(admin.id)
-
-            self.current_user = admin
-            self.current_session = session
+    def was_admin_seeded(self) -> bool:
+        return self._admin_seeded
 
     def has_active_session(self) -> bool:
         return self.current_session is not None
