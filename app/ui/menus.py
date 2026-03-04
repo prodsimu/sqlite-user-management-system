@@ -1,38 +1,38 @@
 class Menu:
 
     @staticmethod
-    def admin_seed_menu() -> None:
-        print("=== SYSTEM FIRST STARTUP ===")
-        print("Admin created automatically:")
-        print("Username: admin")
-        print("Password: admin123")
-        print("Logging in...\n")
+    def admin_seed_menu() -> str:
+        return (
+            "=== SYSTEM FIRST STARTUP ===\n"
+            "Admin created automatically:\n"
+            "Username: admin\n"
+            "Password: admin123\n"
+            "Logging in...\n"
+        )
 
     @staticmethod
-    def public_menu() -> None:
-        print("=== PUBLIC MENU ===")
-        print("1 - Login")
-        print("0 - Shutdown")
+    def public_menu() -> str:
+        return "=== PUBLIC MENU ===\n" "1 - Login\n" "0 - Shutdown\n"
 
     @staticmethod
-    def admin_menu() -> None:
-        print("=== ADMIN MENU ===")
-        print("1 - Create user")
-        print("2 - List users")
-        print("3 - Update user")
-        print("4 - Delete user")
-        print("0 - Logout")
+    def admin_menu() -> str:
+        return (
+            "=== ADMIN MENU ===\n"
+            "1 - Create user\n"
+            "2 - List users\n"
+            "3 - Update user\n"
+            "4 - Delete user\n"
+            "0 - Logout\n"
+        )
 
     @staticmethod
-    def user_menu() -> None:
-        print("=== USER MENU ===")
-        print("1 - Change password")
-        print("0 - Logout")
+    def user_menu() -> str:
+        return "=== USER MENU ===\n" "1 - Change password\n" "0 - Logout\n"
 
     @staticmethod
-    def show_error(message: str) -> None:
-        print(message)
-    
+    def show_error(message: str) -> str:
+        return f"{message}\n"
+
     @staticmethod
-    def shutdown_message() -> None:
-        print("Shutting down system...")
+    def shutdown_message() -> str:
+        return "Shutting down system...\n"
