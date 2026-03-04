@@ -72,6 +72,30 @@ class UserRepository:
 
         return bool(row[0])
 
+    def list_all_users(self) -> list:
+        cursor = self.connection.execute(
+            """
+        SELECT * FROM users;
+        """
+        )
+
+        row = cursor.fetchall()
+
+        user_list = []
+
+        for u in row:
+            user = User(
+                u["id"],
+                u["name"],
+                u["username"],
+                u["password"],
+                u["role"],
+            )
+
+            user_list.append(user)
+
+        return user_list
+
     # UPDATE
 
     def update_by_fields(
