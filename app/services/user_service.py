@@ -16,7 +16,7 @@ class UserService:
 
     # CREATE
 
-    def create_user(self, name: str, username: str, password: str) -> User:
+    def create(self, name: str, username: str, password: str) -> User:
         existing_user = self.user_repository.find_by_username(username)
 
         if existing_user:
