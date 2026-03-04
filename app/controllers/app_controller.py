@@ -43,6 +43,11 @@ class AppController:
         self.current_session = None
         self.current_user = None
 
+    # CREATE USER
+
+    def create_user(self, name: str, username: str, password: str) -> None:
+        self.user_service.create(name, username, password)
+
     # UPDATE USER
 
     def update_name(self, user_id, name) -> None:
