@@ -49,8 +49,14 @@ class Menu:
     def startup_message() -> str:
         return "The system was started\n"
 
+    @staticmethod
     def password_do_not_match_message() -> str:
         return "Passwords do not match\n"
 
+    @staticmethod
     def password_updated_message() -> str:
         return "Password updated successfully\n"
+
+    @staticmethod
+    def user_successfully_created_message() -> str:
+        return "New user successfully created\n"
