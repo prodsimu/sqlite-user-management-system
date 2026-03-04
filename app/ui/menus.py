@@ -36,3 +36,7 @@ class Menu:
     @staticmethod
     def shutdown_message() -> str:
         return "Shutting down system...\n"
+
+    @staticmethod
+    def successfully_logged_in() -> str:
+        return "logged in successfully"
