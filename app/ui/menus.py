@@ -51,3 +51,6 @@ class Menu:
 
     def password_do_not_match_message() -> str:
         return "Passwords do not match\n"
+
+    def password_updated_message() -> str:
+        return "Password updated successfully\n"
