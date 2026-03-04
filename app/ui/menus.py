@@ -38,6 +38,10 @@ class Menu:
         return "Shutting down system...\n"
 
     @staticmethod
+    def logout_message() -> str:
+        return "Exiting session...\n"
+
+    @staticmethod
     def successfully_logged_in() -> str:
         return "Logged in successfully\n"
 
