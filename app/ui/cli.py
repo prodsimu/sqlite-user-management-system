@@ -69,11 +69,9 @@ class CLI:
         match choice:
 
             case 0:
-                pass
-
+                self._handle_logout()
             case 1:
                 pass
-
             case 2:
                 pass
 
@@ -89,7 +87,7 @@ class CLI:
         match choice:
 
             case 0:
-                pass
+                self._handle_logout()
 
             case 1:
                 pass
@@ -105,6 +103,10 @@ class CLI:
             self.flash_message = Menu.successfully_logged_in()
         except Exception as e:
             self.flash_message = Menu.show_error(str(e))
+
+    def _handle_logout(self) -> None:
+        self.flash_message = Menu.logout_message()
+        self.controller.logout()
 
     def _clear_screen(self) -> None:
         os.system("cls" if os.name == "nt" else "clear")
