@@ -60,3 +60,17 @@ class Menu:
     @staticmethod
     def user_successfully_created_message() -> str:
         return "New user successfully created\n"
+
+    def show_all_users(user_list: list) -> str:
+        formated_list = []
+
+        for user in user_list:
+            formated_user = "".join(
+                f"ID ------- {user.id}\n"
+                f"Name ----- {user.name}\n"
+                f"Username - {user.username}\n"
+                f"Role ----- {user.role}\n"
+            )
+            formated_list.append(formated_user)
+
+        return "\n".join(formated_list)
