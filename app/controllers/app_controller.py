@@ -46,16 +46,16 @@ class AppController:
     # UPDATE USER
 
     def update_name(self, user_id, name) -> None:
-        self.user_service.update_user(user_id, name)
+        self.user_service.update_user(user_id=user_id, name=name)
 
     def update_username(self, user_id, username) -> None:
-        self.user_service.update_user(user_id, username)
+        self.user_service.update_user(user_id=user_id, username=username)
 
     def update_password(self, user_id, password) -> None:
-        self.user_service.update_user(user_id, password)
+        self.user_service.update_user(user_id=user_id, password=password)
 
     def update_role(self, user_id, role) -> None:
-        self.user_service.update_user(user_id, role)
+        self.user_service.update_user(user_id=user_id, role=role)
 
     # UTIL
 
