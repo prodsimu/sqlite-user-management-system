@@ -61,6 +61,10 @@ class Menu:
     def user_successfully_created_message() -> str:
         return "New user successfully created\n"
 
+    @staticmethod
+    def user_successfully_deleted_message() -> str:
+        return "User successfully deleted\n"
+
     def show_all_users(user_list: list) -> str:
         formated_list = []
 
