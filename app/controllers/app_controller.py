@@ -70,7 +70,8 @@ class AppController:
     # DELETE USER
 
     def delete_user(self, user_id: int) -> None:
-        self.user_service.delete_user(user_id)
+        current_user_id = self._get_current_user_id()
+        self.user_service.delete_user(current_user_id, user_id)
 
     # UTIL
 
@@ -85,3 +86,6 @@ class AppController:
             self.current_user is not None
             and self.current_user.role == UserRole.ADMIN.value
         )
+
+    def _get_current_user_id(self) -> int:
+        return self.current_user.id
