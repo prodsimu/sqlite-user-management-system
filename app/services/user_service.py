@@ -116,7 +116,11 @@ class UserService:
 
     # DELETE
 
-    def delete_user(self, user_id: int) -> None:
+    def delete_user(self, current_user_id: int, user_id: int) -> None:
+
+        if current_user_id == user_id:
+            raise PermissionError("You can't delete your own user")
+
         deleted = self.user_repository.delete(user_id)
 
         if not deleted:
