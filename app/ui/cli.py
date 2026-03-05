@@ -25,6 +25,9 @@ class CLI:
 
     def main_loop(self) -> None:
 
+        if self.controller.was_admin_seeded():
+            self.flash_message = Menu.admin_seed_menu()
+
         while self.running:
 
             if not self.controller.has_active_session():
