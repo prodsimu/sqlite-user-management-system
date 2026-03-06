@@ -105,23 +105,23 @@ class CLI:
             self.flash_message = Menu.password_dont_match_message()
             return
 
-        try:
+        def action():
             self.controller.update_password(
                 self.controller.current_user.id, new_password
             )
             self.flash_message = Menu.password_updated_message()
-        except Exception as e:
-            self.flash_message = Menu.show_error(str(e))
+
+        self._execute(action)
 
     def _handle_login(self) -> None:
         username = Prompt.ask_username()
         password = Prompt.ask_password()
 
-        try:
+        def action():
             self.controller.login(username, password)
             self.flash_message = Menu.successfully_logged_in()
-        except Exception as e:
-            self.flash_message = Menu.show_error(str(e))
+
+        self._execute(action)
 
     def _handle_logout(self) -> None:
         self.flash_message = Menu.logout_message()
@@ -132,11 +132,11 @@ class CLI:
     def _handle_user_creation(self) -> None:
         name, username, password = Prompt.ask_user_data_to_creation()
 
-        try:
+        def action():
             self.controller.create_user(name, username, password)
             self.flash_message = Menu.user_successfully_created_message()
-        except Exception as e:
-            self.flash_message = Menu.show_error(str(e))
+
+        self._execute(action)
 
     def _handle_list_users(self) -> None:
         user_list = self.controller.list_all_users()
@@ -145,8 +145,16 @@ class CLI:
     def _handle_delete_user(self) -> None:
         user_id = Prompt.ask_user_id()
 
-        try:
+        def action():
             self.controller.delete_user(user_id)
             self.flash_message = Menu.user_successfully_deleted_message()
+
+        self._execute(action)
+
+    # HELPER
+
+    def _execute(self, action):
+        try:
+            action()
         except Exception as e:
             self.flash_message = Menu.show_error(str(e))
