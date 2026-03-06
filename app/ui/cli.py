@@ -30,13 +30,9 @@ class CLI:
         while self.running:
 
             clear_screen()
-
-            if self.flash_message:
-                print(self.flash_message, end="")
-                self.flash_message = None
+            self._show_flash()
 
             print(self._get_current_menu(), end="")
-
             self._handle_current_flow()
 
     # FLOWS
@@ -95,6 +91,11 @@ class CLI:
             self.handle_admin_flow()
         else:
             self.handle_user_flow()
+
+    def _show_flash(self) -> None:
+        if self.flash_message:
+            print(self.flash_message, end="")
+            self.flash_message = None
 
     # USER ACTIONS
 
