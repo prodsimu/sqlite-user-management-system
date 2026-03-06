@@ -1,9 +1,8 @@
-import os
-
 from app.controllers.app_controller import AppController
 from app.domain.user import User
 from app.ui.menus import Menu
 from app.ui.prompts import Prompt
+from app.utils.terminal import clear_screen
 
 
 class CLI:
@@ -18,7 +17,7 @@ class CLI:
 
     def shutdown_system(self) -> None:
         self.running = False
-        self._clear_screen()
+        clear_screen()
         print(Menu.shutdown_message(), end="")
 
     # MAIN LOOP
@@ -37,7 +36,7 @@ class CLI:
             else:
                 menu = Menu.user_menu()
 
-            self._clear_screen()
+            clear_screen()
 
             if self.flash_message:
                 print(self.flash_message, end="")
@@ -146,8 +145,3 @@ class CLI:
             self.flash_message = Menu.user_successfully_deleted_message()
         except Exception as e:
             self.flash_message = Menu.show_error(str(e))
-
-    # UTIL
-
-    def _clear_screen(self) -> None:
-        os.system("cls" if os.name == "nt" else "clear")
