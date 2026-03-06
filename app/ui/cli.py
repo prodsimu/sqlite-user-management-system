@@ -1,5 +1,4 @@
 from app.controllers.app_controller import AppController
-from app.domain.user import User
 from app.ui.menus import Menu
 from app.ui.prompts import Prompt
 from app.utils.terminal import clear_screen
@@ -37,7 +36,7 @@ class CLI:
 
     # FLOWS
 
-    def handle_public_flow(self) -> None:
+    def _handle_public_flow(self) -> None:
         choice = Prompt.get_choice([0, 1])
 
         match choice:
@@ -48,7 +47,7 @@ class CLI:
             case 1:
                 self._handle_login()
 
-    def handle_admin_flow(self) -> None:
+    def _handle_admin_flow(self) -> None:
         choice = Prompt.get_choice([0, 1, 2, 3, 4])
 
         match choice:
@@ -64,7 +63,7 @@ class CLI:
             case 4:
                 self._handle_delete_user()
 
-    def handle_user_flow(self) -> None:
+    def _handle_user_flow(self) -> None:
         choice = Prompt.get_choice([0, 1])
 
         match choice:
@@ -73,7 +72,7 @@ class CLI:
                 self._handle_logout()
 
             case 1:
-                self.change_own_password(self.controller.current_user)
+                self._handle_change_own_password()
 
     # MAIN LOOP ACTIONS
 
@@ -86,11 +85,11 @@ class CLI:
 
     def _handle_current_flow(self) -> None:
         if not self.controller.has_active_session():
-            self.handle_public_flow()
+            self._handle_public_flow()
         elif self.controller.is_admin():
-            self.handle_admin_flow()
+            self._handle_admin_flow()
         else:
-            self.handle_user_flow()
+            self._handle_user_flow()
 
     def _show_flash(self) -> None:
         if self.flash_message:
@@ -99,7 +98,7 @@ class CLI:
 
     # USER ACTIONS
 
-    def change_own_password(self, current_user: User) -> None:
+    def _handle_change_own_password(self) -> None:
         new_password, confirm_new_password = Prompt.ask_new_password()
 
         if new_password != confirm_new_password:
@@ -107,7 +106,9 @@ class CLI:
             return
 
         try:
-            self.controller.update_password(current_user.id, new_password)
+            self.controller.update_password(
+                self.controller.current_user.id, new_password
+            )
             self.flash_message = Menu.password_updated_message()
         except Exception as e:
             self.flash_message = Menu.show_error(str(e))
