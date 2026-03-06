@@ -29,20 +29,13 @@ class CLI:
 
         while self.running:
 
-            if not self.controller.has_active_session():
-                menu = Menu.public_menu()
-            elif self.controller.is_admin():
-                menu = Menu.admin_menu()
-            else:
-                menu = Menu.user_menu()
-
             clear_screen()
 
             if self.flash_message:
                 print(self.flash_message, end="")
                 self.flash_message = None
 
-            print(menu, end="")
+            print(self._get_current_menu(), end="")
 
             if not self.controller.has_active_session():
                 self.handle_public_flow()
@@ -92,6 +85,15 @@ class CLI:
 
             case 1:
                 self.change_own_password(self.controller.current_user)
+
+    # MAIN LOOP ACTIONS
+
+    def _get_current_menu(self) -> str:
+        if not self.controller.has_active_session():
+            return Menu.public_menu()
+        if self.controller.is_admin():
+            return Menu.admin_menu()
+        return Menu.user_menu()
 
     # USER ACTIONS
 
