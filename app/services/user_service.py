@@ -72,6 +72,11 @@ class UserService:
         role: UserRole | None = None,
     ) -> bool:
 
+        user = self.user_repository.find_by_id(user_id)
+
+        if not user:
+            raise UserNotFoundError("User not found.")
+
         if password is not None:
             if len(password) < 6:
                 raise ValueError("Password must have at least 6 characters.")
