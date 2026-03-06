@@ -37,14 +37,7 @@ class CLI:
 
             print(self._get_current_menu(), end="")
 
-            if not self.controller.has_active_session():
-                self.handle_public_flow()
-
-            elif self.controller.is_admin():
-                self.handle_admin_flow()
-
-            else:
-                self.handle_user_flow()
+            self._handle_current_flow()
 
     # FLOWS
 
@@ -94,6 +87,14 @@ class CLI:
         if self.controller.is_admin():
             return Menu.admin_menu()
         return Menu.user_menu()
+
+    def _handle_current_flow(self) -> None:
+        if not self.controller.has_active_session():
+            self.handle_public_flow()
+        elif self.controller.is_admin():
+            self.handle_admin_flow()
+        else:
+            self.handle_user_flow()
 
     # USER ACTIONS
 
