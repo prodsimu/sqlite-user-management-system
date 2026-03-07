@@ -27,13 +27,6 @@ class Prompt:
         return password
 
     @staticmethod
-    def ask_new_password() -> str:
-        new_password = input("Type the new password: ")
-        confirm_new_password = input("Confirm the new password: ")
-
-        return new_password, confirm_new_password
-
-    @staticmethod
     def ask_user_data_to_creation() -> str:
         name = input("Name: ")
         username = input("Username: ")
@@ -58,3 +51,16 @@ class Prompt:
         new_username = input("New Username: ")
 
         return new_username
+
+    @staticmethod
+    def ask_new_password() -> str:
+        new_password = input("Type the new password: ")
+        confirm_new_password = input("Confirm the new password: ")
+
+        return new_password, confirm_new_password
+
+    @staticmethod
+    def ask_new_role() -> str:
+        new_role = input("New role: ")
+
+        return new_role
