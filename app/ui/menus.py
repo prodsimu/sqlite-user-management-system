@@ -25,6 +25,15 @@ class Menu:
             "0 - Logout\n"
         )
 
+    def update_user_menu() -> str:
+        return (
+            "1 - Update name\n"
+            "2 - Update username\n"
+            "3 - Update password\n"
+            "4 - Update role\n"
+            "0 - Cancel\n"
+        )
+
     @staticmethod
     def user_menu() -> str:
         return "=== USER MENU ===\n" "1 - Change password\n" "0 - Logout\n"
