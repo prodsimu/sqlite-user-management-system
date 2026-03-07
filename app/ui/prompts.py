@@ -1,3 +1,6 @@
+from app.domain.user_role import UserRole
+
+
 class Prompt:
 
     @staticmethod
@@ -60,7 +63,13 @@ class Prompt:
         return new_password, confirm_new_password
 
     @staticmethod
-    def ask_new_role() -> str:
-        new_role = input("New role: ")
+    def ask_new_role() -> UserRole:
+        print("Valid roles: user | admin\n")
 
-        return new_role
+        while True:
+            new_role = input("New role: ")
+
+            try:
+                return UserRole(new_role)
+            except ValueError:
+                print("Invalid role.\n")
