@@ -87,3 +87,7 @@ class Menu:
     @staticmethod
     def name_successfully_updated_message() -> str:
         return "Name successfully updated\n"
+
+    @staticmethod
+    def user_role_updated_message() -> str:
+        return "Role updated successfully\n"
