@@ -59,7 +59,7 @@ class CLI:
             case 2:
                 self._handle_list_users()
             case 3:
-                pass
+                self._handle_update_name()
             case 4:
                 self._handle_delete_user()
 
@@ -152,10 +152,13 @@ class CLI:
         self._execute(action)
 
     def _handle_update_name(self) -> None:
-        user_id = Prompt.ask_user_id()
-        new_name = Prompt.ask_new_name()
 
         def action():
+            user_id = Prompt.ask_user_id()
+            self.controller.user_exists(user_id)
+
+            new_name = Prompt.ask_new_name()
+
             self.controller.update_name(user_id, new_name)
             self.flash_message = Menu.name_successfully_updated_message()
 
