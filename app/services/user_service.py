@@ -47,7 +47,7 @@ class UserService:
 
         return user
 
-    def get_user_by_id(self, user_id: str) -> User:
+    def get_user_by_id(self, user_id: int) -> User:
         user = self.user_repository.find_by_id(user_id)
 
         if not user:
