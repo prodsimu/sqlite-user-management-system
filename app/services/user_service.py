@@ -105,29 +105,6 @@ class UserService:
 
         return PasswordService.verify_password(new_password, user.password)
 
-    def change_user_role(
-        self,
-        current_user_id: int,
-        target_user_id: int,
-        new_role: str,
-    ) -> None:
-
-        current_user = self.user_repository.find_by_id(current_user_id)
-
-        if not current_user:
-            raise UserNotFoundError("Current user not found.")
-
-        if current_user.role != UserRole.ADMIN.value:
-            raise PermissionError("Only admins can change user roles.")
-
-        updated = self.user_repository.update_by_fields(
-            user_id=target_user_id,
-            role=new_role,
-        )
-
-        if not updated:
-            raise UserNotFoundError("Target user not found.")
-
     # DELETE
 
     def delete_user(self, current_user_id: int, user_id: int) -> None:
