@@ -178,6 +178,18 @@ class CLI:
 
         self._execute(action)
 
+    def _handle_update_role(self) -> None:
+        def action():
+            user_id = Prompt.ask_user_id()
+            self.controller.user_exists(user_id)
+
+            new_role = Prompt.ask_new_role()
+
+            self.controller.update_role(user_id, new_role)
+            self.flash_message = Menu.user_role_updated_message()
+
+        self._execute(action)
+
     # DELETE
 
     def _handle_delete_user(self) -> None:
