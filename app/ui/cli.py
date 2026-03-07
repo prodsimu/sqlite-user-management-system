@@ -102,10 +102,15 @@ class CLI:
     # USER ACTIONS
 
     def _handle_change_own_password(self) -> None:
+
         new_password, confirm_new_password = Prompt.ask_new_password()
 
-        if new_password != confirm_new_password:
-            self.flash_message = Menu.password_dont_match_message()
+        if not self._verify_new_passwords_match(new_password, confirm_new_password):
+            self.flash_message = Menu.password_do_not_match_message()
+            return
+
+        if self._is_new_password_same_as_current(new_password):
+            self.flash_message = Menu.verify_new_password_matches_current_message()
             return
 
         def action():
@@ -113,6 +118,8 @@ class CLI:
                 self.controller.current_user.id, new_password
             )
             self.flash_message = Menu.password_updated_message()
+
+        self._execute(action)
 
     def _handle_login(self) -> None:
         username = Prompt.ask_username()
