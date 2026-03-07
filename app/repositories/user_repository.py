@@ -57,21 +57,6 @@ class UserRepository:
             row["id"], row["name"], row["username"], row["password"], row["role"]
         )
 
-    def check_if_only_admin_exists(self) -> bool:
-        cursor = self.connection.execute(
-            """
-            SELECT 
-                COUNT(*) = 1 
-                AND 
-                COALESCE(SUM(CASE WHEN role = 'ADMIN' THEN 1 ELSE 0 END), 0) = 1
-            FROM users;
-            """
-        )
-
-        row = cursor.fetchone()
-
-        return bool(row[0])
-
     def list_all_users(self) -> list:
         cursor = self.connection.execute(
             """

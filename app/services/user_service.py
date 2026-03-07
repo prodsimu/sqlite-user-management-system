@@ -57,9 +57,6 @@ class UserService:
 
         return user
 
-    def only_admin_exists(self) -> bool:
-        return self.user_repository.check_if_only_admin_exists()
-
     def list_all_users(self) -> list:
         return self.user_repository.list_all_users()
 
