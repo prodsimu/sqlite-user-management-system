@@ -60,7 +60,7 @@ class CLI:
             case 2:
                 self._handle_list_users()
             case 3:
-                pass
+                self._handle_update_flow()
             case 4:
                 self._handle_delete_user()
 
@@ -153,7 +153,7 @@ class CLI:
 
             new_username = Prompt.ask_new_username()
 
-            self.controller.update_username(user_id, new_username)
+            self.controller.update_name(user_id, new_username)
             self.flash_message = Menu.name_successfully_updated_message()
 
         self._execute(action)
@@ -189,6 +189,23 @@ class CLI:
             self.flash_message = Menu.user_role_updated_message()
 
         self._execute(action)
+
+    def _handle_update_flow(self) -> None:
+        print(Menu.update_user_menu())
+
+        choice = Prompt.get_choice([0, 1, 2, 3, 4])
+
+        match choice:
+            case 0:
+                pass
+            case 1:
+                self._handle_update_name()
+            case 2:
+                self._handle_update_username()
+            case 3:
+                self._handle_update_password()
+            case 4:
+                self._handle_update_role()
 
     # DELETE
 
