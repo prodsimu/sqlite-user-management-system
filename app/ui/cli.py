@@ -191,6 +191,8 @@ class CLI:
         self._execute(action)
 
     def _handle_update_flow(self) -> None:
+
+        clear_screen()
         print(Menu.update_user_menu())
 
         choice = Prompt.get_choice([0, 1, 2, 3, 4])
