@@ -39,3 +39,15 @@ def test_user_repository_update_by_fields(user_repository):
     user = user_repository.find_by_id(1)
 
     assert user.name == "joseph"
+
+
+def test_user_repository_delete(user_repository):
+    user_repository.create("ignatius", "ignatius123", "hashed_password", "user")
+
+    user = user_repository.find_by_id(1)
+
+    user_repository.delete(1)
+
+    user = user_repository.find_by_id(1)
+
+    assert user is None
