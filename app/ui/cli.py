@@ -153,8 +153,8 @@ class CLI:
 
             new_username = Prompt.ask_new_username()
 
-            self.controller.update_name(user_id, new_username)
-            self.flash_message = Menu.name_updated_message()
+            self.controller.update_username(user_id, new_username)
+            self.flash_message = Menu.username_updated_message()
 
         self._execute(action)
 
