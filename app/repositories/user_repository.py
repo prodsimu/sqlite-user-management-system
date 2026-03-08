@@ -3,8 +3,9 @@ from app.domain.user import User
 
 
 class UserRepository:
-    def __init__(self):
-        self.connection = DatabaseConnection().get_connection()
+
+    def __init__(self, connection=None):
+        self.connection = connection or DatabaseConnection().get_connection()
 
     # CREATE
 
