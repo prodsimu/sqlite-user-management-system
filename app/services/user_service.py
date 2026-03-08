@@ -87,7 +87,7 @@ class UserService:
             if current_user_id == user_id:
                 raise PermissionError("You can't update your own role.")
 
-            if role not in [role.value for role in UserRole]:
+            if role not in [r.value for r in UserRole]:
                 raise InvalidUserDataError("Invalid role.")
 
             if user.role == role:
