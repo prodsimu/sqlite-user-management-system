@@ -25,7 +25,7 @@ class CLI:
     def main_loop(self) -> None:
 
         if self.controller.was_admin_seeded():
-            self.flash_message = Menu.admin_seed_menu()
+            self.flash_message = Menu.admin_seed_message()
 
         while self.running:
 
@@ -105,7 +105,7 @@ class CLI:
 
         def action():
             self.controller.login(username, password)
-            self.flash_message = Menu.successfully_logged_in()
+            self.flash_message = Menu.logged_in_message()
 
         self._execute(action)
 
@@ -120,7 +120,7 @@ class CLI:
 
         def action():
             self.controller.create_user(name, username, password)
-            self.flash_message = Menu.user_successfully_created_message()
+            self.flash_message = Menu.user_created_message()
 
         self._execute(action)
 
@@ -141,7 +141,7 @@ class CLI:
             new_name = Prompt.ask_new_name()
 
             self.controller.update_name(user_id, new_name)
-            self.flash_message = Menu.name_successfully_updated_message()
+            self.flash_message = Menu.name_updated_message()
 
         self._execute(action)
 
@@ -153,8 +153,8 @@ class CLI:
 
             new_username = Prompt.ask_new_username()
 
-            self.controller.update_name(user_id, new_username)
-            self.flash_message = Menu.name_successfully_updated_message()
+            self.controller.update_username(user_id, new_username)
+            self.flash_message = Menu.username_updated_message()
 
         self._execute(action)
 
@@ -167,7 +167,7 @@ class CLI:
             return
 
         if self._is_new_password_same_as_current(new_password):
-            self.flash_message = Menu.verify_new_password_matches_current_message()
+            self.flash_message = Menu.is_new_password_same_as_current_message()
             return
 
         def action():
@@ -186,11 +186,13 @@ class CLI:
             new_role = Prompt.ask_new_role()
 
             self.controller.update_role(user_id, new_role)
-            self.flash_message = Menu.user_role_updated_message()
+            self.flash_message = Menu.role_updated_message()
 
         self._execute(action)
 
     def _handle_update_flow(self) -> None:
+
+        clear_screen()
         print(Menu.update_user_menu())
 
         choice = Prompt.get_choice([0, 1, 2, 3, 4])
@@ -214,7 +216,7 @@ class CLI:
 
         def action():
             self.controller.delete_user(user_id)
-            self.flash_message = Menu.user_successfully_deleted_message()
+            self.flash_message = Menu.user_deleted_message()
 
         self._execute(action)
 
