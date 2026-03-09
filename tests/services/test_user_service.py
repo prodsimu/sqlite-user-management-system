@@ -84,3 +84,21 @@ def test_user_service_get_nonexistent_user_by_id(user_service):
         assert False, "Expected UserNotFoundError"
     except Exception as e:
         assert str(e) == "User not found."
+
+
+def test_user_service_update_user(user_service):
+    user = user_service.create("Ignatius", "ignatius123", "password123")
+    updated = user_service.update_user(
+        user_id=user.id,
+        name="Ignatius Updated",
+        username="ignatius_updated",
+        password="newpassword123",
+        role=UserRole.ADMIN,
+    )
+
+    assert updated is True
+
+    updated_user = user_service.get_user_by_id(user.id)
+    assert updated_user.name == "Ignatius Updated"
+    assert updated_user.username == "ignatius_updated"
+    assert updated_user.role == UserRole.ADMIN.value
