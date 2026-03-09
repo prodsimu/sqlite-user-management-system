@@ -77,6 +77,12 @@ class UserService:
         if not user:
             raise UserNotFoundError("User not found.")
 
+        if username is not None:
+            existing_user = self.user_repository.find_by_username(username)
+
+            if existing_user and existing_user.id != user_id:
+                raise UserAlreadyExistsError("Username already exists.")
+
         if password is not None:
             if not 8 <= len(password) <= 64:
                 raise ValueError("Password must be between 8 and 64 characters long.")
