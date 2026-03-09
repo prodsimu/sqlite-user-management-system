@@ -116,3 +116,14 @@ def test_user_service_update_nonexistent_user(user_service):
         assert False, "Expected UserNotFoundError"
     except Exception as e:
         assert str(e) == "User not found."
+
+
+def test_user_service_update_user_duplicate_username(user_service):
+    user1 = user_service.create("Ignatius", "ignatius123", "password123")
+    user2 = user_service.create("Another User", "anotheruser", "password123")
+
+    try:
+        user_service.update_user(user_id=user2.id, username=user1.username)
+        assert False, "Expected UserAlreadyExistsError"
+    except Exception as e:
+        assert str(e) == "Username already exists."
