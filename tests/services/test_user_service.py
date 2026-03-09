@@ -68,3 +68,11 @@ def test_user_service_create_invalid_password(user_service):
         assert False, "Expected InvalidPasswordError"
     except Exception as e:
         assert str(e) == "Password must be between 8 and 64 characters long."
+
+
+def test_user_service_get_nonexistent_user_by_username(user_service):
+    try:
+        user_service.get_user_by_username("nonexistent")
+        assert False, "Expected UserNotFoundError"
+    except Exception as e:
+        assert str(e) == "User not found."
