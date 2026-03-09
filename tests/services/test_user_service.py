@@ -102,3 +102,17 @@ def test_user_service_update_user(user_service):
     assert updated_user.name == "Ignatius Updated"
     assert updated_user.username == "ignatius_updated"
     assert updated_user.role == UserRole.ADMIN.value
+
+
+def test_user_service_update_nonexistent_user(user_service):
+    try:
+        user_service.update_user(
+            user_id=999,
+            name="Nonexistent User",
+            username="nonexistent",
+            password="password123",
+            role=UserRole.USER,
+        )
+        assert False, "Expected UserNotFoundError"
+    except Exception as e:
+        assert str(e) == "User not found."
