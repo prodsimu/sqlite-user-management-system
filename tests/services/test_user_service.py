@@ -19,3 +19,13 @@ def test_user_service_create_admin(user_service):
     assert admin.username == "admin"
     assert admin.role == UserRole.ADMIN.value
     assert admin.password != "admin123"
+
+
+def test_user_service_get_user_by_username(user_service):
+    user_service.create("Ignatius", "ignatius123", "password123")
+    user = user_service.get_user_by_username("ignatius123")
+
+    assert user is not None
+    assert user.name == "Ignatius"
+    assert user.username == "ignatius123"
+    assert user.role == UserRole.USER.value
