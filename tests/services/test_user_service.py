@@ -185,3 +185,16 @@ def test_user_service_is_new_password_same_as_current(user_service):
     assert (
         user_service.is_new_password_same_as_current(user2.id, "password999") is False
     )
+
+
+def test_user_service_delete_user(user_service):
+    user = user_service.create("Ignatius", "ignatius123", "password123")
+    admin = user_service.create_admin("Admin", "admin", "admin123")
+
+    user_service.delete_user(current_user_id=admin.id, user_id=user.id)
+
+    try:
+        user_service.get_user_by_id(user.id)
+        assert False, "Expected UserNotFoundError"
+    except UserNotFoundError:
+        pass
