@@ -227,3 +227,11 @@ def test_user_service_authenticate_user_valid(user_service):
 
     assert authenticated.id == user.id
     assert authenticated.username == user.username
+
+
+def test_user_service_authenticate_user_invalid_username(user_service):
+    try:
+        user_service.authenticate_user("nonexistent", "password123")
+        assert False, "Expected UserNotFoundError"
+    except UserNotFoundError as e:
+        assert str(e) == "Invalid credentials."
