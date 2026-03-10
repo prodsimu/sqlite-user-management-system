@@ -1,4 +1,10 @@
 from app.domain.user_role import UserRole
+from app.exceptions.user_exceptions import (
+    InvalidPasswordError,
+    InvalidUserDataError,
+    UserAlreadyExistsError,
+    UserNotFoundError,
+)
 
 
 def test_user_service_create(user_service):
@@ -58,7 +64,7 @@ def test_user_service_create_duplicate_username(user_service):
     try:
         user_service.create("Another Ignatius", "ignatius123", "password456")
         assert False, "Expected UserAlreadyExistsError"
-    except Exception as e:
+    except UserAlreadyExistsError as e:
         assert str(e) == "Username already exists."
 
 
@@ -66,7 +72,7 @@ def test_user_service_create_invalid_password(user_service):
     try:
         user_service.create("Ignatius", "ignatius123", "short")
         assert False, "Expected InvalidPasswordError"
-    except Exception as e:
+    except InvalidPasswordError as e:
         assert str(e) == "Password must be between 8 and 64 characters long."
 
 
@@ -74,7 +80,7 @@ def test_user_service_get_nonexistent_user_by_username(user_service):
     try:
         user_service.get_user_by_username("nonexistent")
         assert False, "Expected UserNotFoundError"
-    except Exception as e:
+    except UserNotFoundError as e:
         assert str(e) == "User not found."
 
 
@@ -82,7 +88,7 @@ def test_user_service_get_nonexistent_user_by_id(user_service):
     try:
         user_service.get_user_by_id(999)
         assert False, "Expected UserNotFoundError"
-    except Exception as e:
+    except UserNotFoundError as e:
         assert str(e) == "User not found."
 
 
@@ -114,7 +120,7 @@ def test_user_service_update_nonexistent_user(user_service):
             role=UserRole.USER,
         )
         assert False, "Expected UserNotFoundError"
-    except Exception as e:
+    except UserNotFoundError as e:
         assert str(e) == "User not found."
 
 
@@ -125,5 +131,5 @@ def test_user_service_update_user_duplicate_username(user_service):
     try:
         user_service.update_user(user_id=user2.id, username=user1.username)
         assert False, "Expected UserAlreadyExistsError"
-    except Exception as e:
+    except UserAlreadyExistsError as e:
         assert str(e) == "Username already exists."
