@@ -153,3 +153,13 @@ def test_user_service_update_user_same_role(user_service):
         assert False, "Expected InvalidUserDataError"
     except InvalidUserDataError as e:
         assert str(e) == "New role is same as current."
+
+
+def test_user_service_update_user_invalid_role(user_service):
+    user = user_service.create("Ignatius", "ignatius123", "password123")
+
+    try:
+        user_service.update_user(user_id=user.id, role="invalid_role")
+        assert False, "Expected InvalidUserDataError"
+    except InvalidUserDataError as e:
+        assert str(e) == "Invalid role."
