@@ -218,3 +218,12 @@ def test_user_service_delete_nonexistent_user(user_service):
         assert False, "Expected UserNotFoundError"
     except UserNotFoundError as e:
         assert str(e) == "User not found."
+
+
+def test_user_service_authenticate_user_valid(user_service):
+    user = user_service.create("Ignatius", "ignatius123", "password123")
+
+    authenticated = user_service.authenticate_user("ignatius123", "password123")
+
+    assert authenticated.id == user.id
+    assert authenticated.username == user.username
